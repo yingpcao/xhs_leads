@@ -1,0 +1,34 @@
+{
+  "version": "p2-resource-report-v1",
+  "read_only": true,
+  "model_loaded": false,
+  "network_accessed": false,
+  "os": {
+    "system": "Windows",
+    "release": "10",
+    "python": "3.15.0"
+  },
+  "cpu": {
+    "cores_logical": 8,
+    "platform_machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 106 Stepping 6, GenuineIntel",
+    "source": "os.cpu_count/platform (标准库元数据，未做负载测量)"
+  },
+  "memory": {
+    "total_bytes": 17178939392,
+    "total_bytes_unknown": false,
+    "source": "kernel32.GlobalMemoryStatusEx"
+  },
+  "gpus": [],
+  "gpus_unknown_reason": "标准库无法可移植地枚举 GPU；未启动外部探测、未加载 CUDA",
+  "inference_latency_budget": {
+    "status": "unmeasured",
+    "value_ms": null,
+    "reason": "硬件事实不等于推理耗时；Qwen3-Embedding-0.6B 或替代模型的本机基准尚未获准执行"
+  },
+  "model_capacity_estimate": {
+    "status": "unmeasured",
+    "note": "0.6B fp32 约需 2.4GB 权重内存（公开参数量的算术估算），仅作预算线索，不构成可运行结论"
+  },
+  "p2_03_status": "INCOMPLETE：真实模型基准与权重版本记录需要单独授权后进行"
+}

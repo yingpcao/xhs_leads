@@ -1,0 +1,80 @@
+{
+  "batch": {
+    "analysis_version": "p0-rule-baseline.3",
+    "at": "2026-10-31T16:00:07.767042+00:00",
+    "batch": "b02-20261031T160007Z",
+    "export_dir": "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b02-20261031T160007Z",
+    "extractor_version": "p0-rule-extract.2",
+    "files": [
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b02-20261031T160007Z/keywords.csv",
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b02-20261031T160007Z/needs.csv",
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b02-20261031T160007Z/evidence.csv",
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b02-20261031T160007Z/graph.graphml",
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b02-20261031T160007Z/report.json"
+    ],
+    "verification_ok": true
+  },
+  "engine": {
+    "calibration_samples": 0,
+    "events": [
+      "校准池冻结：cp-901b81a1ae32a43e（1 个成员，种子 20261031）",
+      "消费控制请求 3：extend → paused",
+      "消费控制请求 4：resume → running",
+      "槽位 0 完成：上海中考探究报告怎么写模板 怎么选（联想 skipped/0 次尝试，内容 completed，奖励 0.0000）",
+      "槽位 1 完成：上海中考探究报告怎么写 怎么选 需要什么条件（联想 skipped/0 次尝试，内容 completed，奖励 0.9524）",
+      "槽位 2 停在阻断：上海中考探究报告怎么写 怎么选 需要什么条件 有哪些坑（联想 skipped，阻断码 WORD_SEARCH_NAVIGATION_FAILED；同一槽未继续后续访问）",
+      "停止策略：paused —— page 异常（code=WORD_SEARCH_NAVIGATION_FAILED）重试已用尽：提交搜索后没有进入搜索结果页。；异常与验证码不得记为收敛"
+    ],
+    "note": "page 异常（code=WORD_SEARCH_NAVIGATION_FAILED）重试已用尽：提交搜索后没有进入搜索结果页。；异常与验证码不得记为收敛",
+    "outcome": null,
+    "pause_reason": "selector_mismatch",
+    "recovered": {
+      "imported_artifacts": 148,
+      "orphaned": [],
+      "reconciled": [],
+      "released_reservations": [],
+      "uncertain_operations": []
+    },
+    "run_id": "zhongkao-report-20261031",
+    "signals": {
+      "budget": {
+        "blocked_actions": [
+          "suggest",
+          "body",
+          "author_posts"
+        ],
+        "exhausted_keys": [
+          "suggest_attempts",
+          "body_attempts",
+          "author_attempts",
+          "model_calls",
+          "model_tokens",
+          "model_cost_usd"
+        ],
+        "runnable_actions": [
+          "search"
+        ],
+        "runtime_limit_hit": false
+      },
+      "content_validations": 0,
+      "exhausted_branches": [],
+      "pending_items": 22,
+      "stalled_branches": [],
+      "uncovered_branches": [],
+      "window": {
+        "new_valid_clusters_in_window": 8,
+        "observed_items": 133,
+        "repeat_items": 85,
+        "repeat_rate": 0.639098,
+        "successful_observations": 21,
+        "window_ends_at": "2026-10-31T15:56:36.004000+00:00",
+        "window_full": false,
+        "window_observations": 21
+      }
+    },
+    "slots": 3,
+    "status": "paused"
+  },
+  "resume_request_id": 4,
+  "run_id": "zhongkao-report-20261031"
+}

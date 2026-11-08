@@ -1,0 +1,25 @@
+# 八类意图规则（P0-23 使用；本文件先冻结结构与取值范围）。
+# 否定、比较对象、地域/年份作为结构属性保存，参与归并兼容判定，不做文本清洗。
+
+version: 1
+
+rules:
+  - intent: information_query
+    patterns: ["是什么", "什么意思", "什么时候", "有哪些", "时间", "条件"]
+  - intent: method_guidance
+    patterns: ["怎么", "如何", "怎样", "流程", "步骤", "攻略", "规划"]
+  - intent: comparison_decision
+    patterns: ["区别", "对比", "哪个好", "选哪", "排序", "要不要", "值不值"]
+  - intent: risk_avoidance
+    patterns: ["避坑", "注意", "风险", "别踩", "陷阱", "后悔", "分流"]
+  - intent: resource_acquisition
+    patterns: ["资料", "真题", "卷子", "笔记", "模板", "清单", "题库"]
+  - intent: cost_constraint
+    patterns: ["费用", "多少钱", "价格", "学费", "成本", "民办"]
+  - intent: effect_improvement
+    patterns: ["提高", "提升", "涨分", "冲刺", "效率", "方法 效果"]
+  - intent: experience_validation
+    patterns: ["经验", "经历", "过来人", "真实", "上岸", "复读"]
+
+negation_patterns: ["不", "没", "别", "无", "无法", "不能", "太难", "考不上"]
+comparison_patterns: ["区别", "对比", "哪个", "更好", "vs", "比较"]

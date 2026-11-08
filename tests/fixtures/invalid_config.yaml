@@ -1,0 +1,15 @@
+# 故意非法的配置样例：priority 权重之和不为 1.0，供 test_config / test_cli_and_paths 断言报错文案。
+version: 1
+run:
+  seed_raw: "上海中考"
+  mode: fixture
+  random_seed: 1
+  data_dir: data
+budget:
+  suggest_attempts: 100
+scheduler:
+  slot_window: 20
+  slots_high_score: 12
+  slots_branch_exploration: 5
+  slots_random_novelty: 3
+  weights: {r: 0.40, n: 0.20, i: 0.20, e: 0.15, c: 0.10, u: 0.10}

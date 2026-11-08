@@ -1,0 +1,419 @@
+{
+  "synthetic_note": "TEST-CONSTRUCTED protocol fixtures (not real platform captures). Shape follows the machine-readable spec recorded 2026-10-28. Requests use seed '上海中考'.",
+  "requested_seed": "上海中考",
+  "scenarios": [
+    {
+      "name": "suggest_ok",
+      "command": "suggest",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": true, \"exitCode\": 0, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:33.358Z\", \"status\": \"completed\", \"suggestions\": [\"上海中考分数组成\", \"上海中考总分750分\", \"上海中考体育\"], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "completed",
+        "error_code": null,
+        "category": null,
+        "human": false,
+        "retryable": false,
+        "items": "some",
+        "min_items": 3
+      }
+    },
+    {
+      "name": "suggest_empty_confirmed",
+      "command": "suggest",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": true, \"exitCode\": 0, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:33.358Z\", \"status\": \"completed\", \"suggestions\": [], \"notes\": [], \"stopReason\": \"empty\", \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "completed",
+        "error_code": null,
+        "category": null,
+        "human": false,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "search_ok",
+      "command": "search",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"search\", \"ok\": true, \"exitCode\": 0, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"completed\", \"suggestions\": [], \"notes\": [{\"id\": \"n1\", \"title\": \"上海中考分流怎么选？\", \"url\": \"https://www.xiaohongshu.com/search_result/n1?xsec_token=SIG1&xsec_source=\", \"author\": \"关关老师\", \"authorUrl\": \"https://www.xiaohongshu.com/user/profile/u1\", \"likesText\": \"1.2万\", \"publishedText\": \"10-07\", \"coverUrl\": \"https://cdn/x.webp\"}, {\"id\": \"n2\", \"title\": null, \"url\": \"https://www.xiaohongshu.com/search_result/n2?xsec_token=SIG2\", \"author\": null, \"authorUrl\": null, \"likesText\": null, \"publishedText\": null, \"coverUrl\": null}], \"stopReason\": \"limit\", \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "completed",
+        "error_code": null,
+        "category": null,
+        "human": false,
+        "retryable": false,
+        "items": "some",
+        "min_items": 2
+      }
+    },
+    {
+      "name": "search_partial_keeps_data",
+      "command": "search",
+      "returncode": 7,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"search\", \"ok\": false, \"exitCode\": 7, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"partial\", \"suggestions\": [], \"notes\": [{\"id\": \"n1\", \"title\": \"上海中考分流怎么选？\", \"url\": \"https://www.xiaohongshu.com/search_result/n1?xsec_token=SIG1&xsec_source=\", \"author\": \"关关老师\", \"authorUrl\": \"https://www.xiaohongshu.com/user/profile/u1\", \"likesText\": \"1.2万\", \"publishedText\": \"10-07\", \"coverUrl\": \"https://cdn/x.webp\"}, {\"id\": \"n2\", \"title\": null, \"url\": \"https://www.xiaohongshu.com/search_result/n2?xsec_token=SIG2\", \"author\": null, \"authorUrl\": null, \"likesText\": null, \"publishedText\": null, \"coverUrl\": null}], \"stopReason\": \"no_growth\", \"warnings\": [\"PARTIAL_RESULT\"], \"error\": null}], \"outputDir\": null}, \"error\": {\"code\": \"PARTIAL_RESULT\", \"message\": \"部分结果\", \"hint\": null}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "partial",
+        "error_code": "WORD_PARTIAL_RESULT",
+        "category": "system",
+        "human": false,
+        "retryable": false,
+        "items": "some",
+        "min_items": 1
+      }
+    },
+    {
+      "name": "search_uncertain_empty",
+      "command": "search",
+      "returncode": 7,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"search\", \"ok\": false, \"exitCode\": 7, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"partial\", \"suggestions\": [], \"notes\": [], \"stopReason\": null, \"warnings\": [\"RESULTS_UNAVAILABLE\"], \"error\": null}], \"outputDir\": null}, \"error\": {\"code\": \"RESULTS_UNAVAILABLE\", \"message\": \"无法确认空\", \"hint\": null}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": null,
+        "category": null,
+        "human": null,
+        "retryable": null,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "output_error_keeps_stdout",
+      "command": "search",
+      "returncode": 1,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"search\", \"ok\": false, \"exitCode\": 1, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"completed\", \"suggestions\": [], \"notes\": [{\"id\": \"n1\", \"title\": \"上海中考分流怎么选？\", \"url\": \"https://www.xiaohongshu.com/search_result/n1?xsec_token=SIG1&xsec_source=\", \"author\": \"关关老师\", \"authorUrl\": \"https://www.xiaohongshu.com/user/profile/u1\", \"likesText\": \"1.2万\", \"publishedText\": \"10-07\", \"coverUrl\": \"https://cdn/x.webp\"}, {\"id\": \"n2\", \"title\": null, \"url\": \"https://www.xiaohongshu.com/search_result/n2?xsec_token=SIG2\", \"author\": null, \"authorUrl\": null, \"likesText\": null, \"publishedText\": null, \"coverUrl\": null}], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": {\"code\": \"OUTPUT_ERROR\", \"message\": \"写文件失败\", \"hint\": null}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "partial",
+        "error_code": "WORD_OUTPUT_ERROR",
+        "category": "output",
+        "human": true,
+        "retryable": false,
+        "items": "some",
+        "min_items": 2
+      }
+    },
+    {
+      "name": "auth_top_conflicts_completed",
+      "command": "suggest",
+      "returncode": 3,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": false, \"exitCode\": 3, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:33.358Z\", \"status\": \"completed\", \"suggestions\": [\"x\", \"y\"], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": {\"code\": \"AUTH_REQUIRED\", \"message\": \"需要登录\", \"hint\": \"运行 init\"}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "CLI_EXIT_3",
+        "category": "auth",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "action_top",
+      "command": "search",
+      "returncode": 4,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"search\", \"ok\": false, \"exitCode\": 4, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"completed\", \"suggestions\": [], \"notes\": [{\"id\": \"n1\", \"title\": \"上海中考分流怎么选？\", \"url\": \"https://www.xiaohongshu.com/search_result/n1?xsec_token=SIG1&xsec_source=\", \"author\": \"关关老师\", \"authorUrl\": \"https://www.xiaohongshu.com/user/profile/u1\", \"likesText\": \"1.2万\", \"publishedText\": \"10-07\", \"coverUrl\": \"https://cdn/x.webp\"}, {\"id\": \"n2\", \"title\": null, \"url\": \"https://www.xiaohongshu.com/search_result/n2?xsec_token=SIG2\", \"author\": null, \"authorUrl\": null, \"likesText\": null, \"publishedText\": null, \"coverUrl\": null}], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": {\"code\": \"ACTION_REQUIRED\", \"message\": \"需要人工验证\", \"hint\": null}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "CLI_EXIT_4",
+        "category": "action_required",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "word_auth_exit5",
+      "command": "search",
+      "returncode": 5,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"search\", \"ok\": false, \"exitCode\": 5, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"failed\", \"suggestions\": [], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": {\"code\": \"AUTH_REQUIRED\", \"message\": \"登录\", \"hint\": null}}], \"outputDir\": null}, \"error\": {\"code\": \"AUTH_REQUIRED\", \"message\": \"登录\", \"hint\": null}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "WORD_AUTH_REQUIRED",
+        "category": "auth",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "word_action_exit5",
+      "command": "search",
+      "returncode": 5,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"search\", \"ok\": false, \"exitCode\": 5, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"failed\", \"suggestions\": [], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": {\"code\": \"ACTION_REQUIRED\", \"message\": \"验证\", \"hint\": null}}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "WORD_ACTION_REQUIRED",
+        "category": "action_required",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "network_exit5",
+      "command": "search",
+      "returncode": 5,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"search\", \"ok\": false, \"exitCode\": 5, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"failed\", \"suggestions\": [], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": {\"code\": \"NETWORK_ERROR\", \"message\": \"网络\", \"hint\": null}}], \"outputDir\": null}, \"error\": {\"code\": \"NETWORK_ERROR\", \"message\": \"网络\", \"hint\": null}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "WORD_NETWORK_ERROR",
+        "category": "network",
+        "human": false,
+        "retryable": true,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "profile_busy_exit6",
+      "command": "suggest",
+      "returncode": 6,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": false, \"exitCode\": 6, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [], \"outputDir\": null}, \"error\": {\"code\": \"PROFILE_BUSY\", \"message\": \"占用\", \"hint\": null}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "WORD_PROFILE_BUSY",
+        "category": "profile_busy",
+        "human": false,
+        "retryable": true,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "usage_exit2",
+      "command": "suggest",
+      "returncode": 2,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": false, \"exitCode\": 2, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [], \"outputDir\": null}, \"error\": {\"code\": \"INVALID_ARGUMENT\", \"message\": \"参数错\", \"hint\": null}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "WORD_INVALID_ARGUMENT",
+        "category": "usage",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "cancelled_keeps_partial",
+      "command": "suggest",
+      "returncode": 130,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": false, \"exitCode\": 130, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:33.358Z\", \"status\": \"completed\", \"suggestions\": [\"a\", \"b\"], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": {\"code\": \"CANCELLED\", \"message\": \"取消\", \"hint\": null}}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": true,
+      "expect": {
+        "state": "partial",
+        "error_code": "CLI_CANCELLED",
+        "category": "cancelled",
+        "human": false,
+        "retryable": false,
+        "items": "some",
+        "min_items": 2
+      }
+    },
+    {
+      "name": "timed_out_no_data",
+      "command": "search",
+      "returncode": 124,
+      "stdout": "",
+      "stderr": "progress\n",
+      "timed_out": true,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "CLI_PROCESS_TIMEOUT",
+        "category": "network",
+        "human": false,
+        "retryable": true,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "empty_stdout",
+      "command": "suggest",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "EMPTY_STDOUT",
+        "category": "system",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "corrupt_json",
+      "command": "suggest",
+      "returncode": 1,
+      "stdout": "{ this is not json",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "MALFORMED_JSON",
+        "category": "system",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "extra_stdout_text",
+      "command": "suggest",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": true, \"exitCode\": 0, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:33.358Z\", \"status\": \"completed\", \"suggestions\": [\"a\"], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}\nEXTRA",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "EXTRA_STDOUT",
+        "category": "system",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "schema_drift",
+      "command": "suggest",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"2.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": true, \"exitCode\": 0, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:33.358Z\", \"status\": \"completed\", \"suggestions\": [\"a\"], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "SCHEMA_VERSION_MISMATCH",
+        "category": "system",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "missing_cli_version",
+      "command": "search",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": null, \"command\": \"search\", \"ok\": true, \"exitCode\": 0, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"completed\", \"suggestions\": [], \"notes\": [{\"id\": \"n1\", \"title\": \"上海中考分流怎么选？\", \"url\": \"https://www.xiaohongshu.com/search_result/n1?xsec_token=SIG1&xsec_source=\", \"author\": \"关关老师\", \"authorUrl\": \"https://www.xiaohongshu.com/user/profile/u1\", \"likesText\": \"1.2万\", \"publishedText\": \"10-07\", \"coverUrl\": \"https://cdn/x.webp\"}, {\"id\": \"n2\", \"title\": null, \"url\": \"https://www.xiaohongshu.com/search_result/n2?xsec_token=SIG2\", \"author\": null, \"authorUrl\": null, \"likesText\": null, \"publishedText\": null, \"coverUrl\": null}], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "MISSING_CLI_VERSION",
+        "category": "system",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "command_mismatch",
+      "command": "suggest",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"search\", \"ok\": true, \"exitCode\": 0, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:40.813Z\", \"status\": \"completed\", \"suggestions\": [], \"notes\": [{\"id\": \"n1\", \"title\": \"上海中考分流怎么选？\", \"url\": \"https://www.xiaohongshu.com/search_result/n1?xsec_token=SIG1&xsec_source=\", \"author\": \"关关老师\", \"authorUrl\": \"https://www.xiaohongshu.com/user/profile/u1\", \"likesText\": \"1.2万\", \"publishedText\": \"10-07\", \"coverUrl\": \"https://cdn/x.webp\"}, {\"id\": \"n2\", \"title\": null, \"url\": \"https://www.xiaohongshu.com/search_result/n2?xsec_token=SIG2\", \"author\": null, \"authorUrl\": null, \"likesText\": null, \"publishedText\": null, \"coverUrl\": null}], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "COMMAND_MISMATCH",
+        "category": "system",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "exit_code_contradiction",
+      "command": "suggest",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": false, \"exitCode\": 7, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:33.358Z\", \"status\": \"completed\", \"suggestions\": [\"a\"], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "EXIT_CODE_MISMATCH",
+        "category": "system",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "ok_flag_contradiction",
+      "command": "suggest",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": false, \"exitCode\": 0, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"上海中考\", \"collectedAt\": \"2026-10-28T08:21:33.358Z\", \"status\": \"completed\", \"suggestions\": [\"a\"], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "OK_FLAG_CONTRADICTION",
+        "category": "system",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    },
+    {
+      "name": "wrong_seed_response",
+      "command": "suggest",
+      "returncode": 0,
+      "stdout": "{\"schemaVersion\": \"1.0\", \"cliVersion\": \"2.0.1\", \"command\": \"suggest\", \"ok\": true, \"exitCode\": 0, \"startedAt\": \"2026-10-28T08:21:30.111Z\", \"data\": {\"results\": [{\"group\": null, \"seed\": \"别的词\", \"collectedAt\": \"2026-10-28T08:21:33.358Z\", \"status\": \"completed\", \"suggestions\": [\"a\"], \"notes\": [], \"stopReason\": null, \"warnings\": [], \"error\": null}], \"outputDir\": null}, \"error\": null}",
+      "stderr": "progress\n",
+      "timed_out": false,
+      "cancelled": false,
+      "expect": {
+        "state": "failed",
+        "error_code": "SEED_MISMATCH",
+        "category": "system",
+        "human": true,
+        "retryable": false,
+        "items": "empty"
+      }
+    }
+  ]
+}

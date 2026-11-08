@@ -1,0 +1,110 @@
+# 真实 CLI 的小预算冒烟配置（live 模式）。
+# 用途：在使用者已完成人工登录（`xhs-search` 某个 profile 已跑通 doctor）之后，跑一次**极小**的真实
+# 标题版闭环：探索→分析→导出→看板。预算故意小到不可能收敛，必然以 budget_exhausted 结束；
+# 不得为了看到 converged 而下调停止判据。
+#
+# 硬边界：
+# - 只采标题卡片：body/author/model 全 0；正文与作者公开笔记属未验证能力。
+# - `node_path`/`cli_path` 必须是本机实测过的绝对路径（本文件里是占位示例，跑 live 前必须改）；
+#   换机器就换这份配置，不做 PATH 猜测。
+# - `lock_dir` 是项目专用、跨数据根共享的本机 profile 互斥目录：绝对路径、不在 data_dir 内、
+#   更不在浏览器登录 profile 目录里（本仓库只按名字建互斥文件，从不读取登录内容）。
+# - `locations` 是操作者显式声明的采样口径，不从 fixture 数据集推导；`ambiguous_seeds` 留空即
+#   保守规则：没有显式配置就不标歧义。likesText 是卡片显示的点赞原文，不是搜索量。
+
+version: 1
+
+run:
+  seed_raw: "上海中考"
+  mode: live
+  random_seed: 20261024
+  data_dir: data_live            # 独立数据根：真实标题版产物不与 fixture 混在同一个库
+  run_label: live-smoke
+
+budget:
+  suggest_attempts: 3            # 联想总预算（含下面的校准 1 次额度上限）
+  search_attempts: 3
+  body_attempts: 0
+  author_attempts: 0
+  calibration_suggest_attempts: 1
+  max_posts_stored: 9
+  max_runtime_minutes: 10
+  model_calls: 0
+  model_tokens: 0
+  model_cost_usd: 0.0
+
+sampling:
+  high_value_posts: 3            # 每词最多 3 张卡片
+  medium_value_posts: 1
+  low_value_posts: 0
+  priority_high: 0.60
+  priority_medium: 0.35
+  branch_min_validation_share: 1
+  first_sample_posts: 1            # 首采保底：smoke 的目的是验证链路能取到内容，不能让绝对分数门把采内容全挡掉
+
+scheduler:
+  slot_window: 6
+  slots_high_score: 4
+  slots_branch_exploration: 1
+  slots_random_novelty: 1
+  ucb_exploration_coefficient: 1.0
+  unknown_evidence_prior: 0.5
+  cluster_keyword_weight: 0.2
+  max_depth: 5                     # 卡住"父词+同一补全"的纵向自我增殖：28 字退化串直接招验证码
+  max_segment_repeats: 2           # 同一 2~3 字片段重复 >2 次判退化词，不入队
+  operators: [suggest_vertical, phrase_fallback, content_lateral, problem_probe]
+  weights: {r: 0.30, n: 0.20, i: 0.20, e: 0.10, c: 0.10, u: 0.10}
+
+stopping:
+  min_successful_suggestion_observations: 50
+  convergence_window: 50
+  new_problem_cluster_floor: 3
+  repeat_rate_ceiling: 0.85
+  branch_stall_trials: 15
+  require_content_validation: true
+
+scoring:
+  weights: {s: 0.35, q: 0.30, a: 0.20, f: 0.15}
+  log_scale: true
+  quantile_min_sample: 30
+
+nlp:
+  char_ngram_min: 2
+  char_ngram_max: 4
+  min_phrase_freq: 2
+  min_pmi: 0.5
+  tfidf_batch_size: 10
+  domain_terms_path: config/domain_terms.txt
+  intent_rules_path: config/intent_rules.yaml
+
+retry:
+  max_retries: 1
+  backoff_base_seconds: 2.0      # live 下真的等退避（fixture 注入时钟免睡）
+  engine_min_interval_seconds: 3.0
+
+retention:
+  raw_artifact_days: 30
+  export_days: 30
+  minimize_author_data: true
+
+models:
+  embedding_enabled: false
+  llm_enabled: false
+
+sources:
+  fixture:
+    dataset: shanghai_zhongkao
+    base_path: tests/fixtures
+  xhs_search:
+    node_path: "C:/path/to/node.exe"        # 占位路径：跑 live 前须改成本机实测绝对路径（Linux/macOS 例 /usr/local/bin/node）
+    cli_path: "C:/path/to/xhs-search-cli/bin/xhs-search.mjs"   # 占位路径：本机 npm 全局安装位置，须实测填写
+    profile: default
+    browser: msedge
+    timeout_seconds: 60
+    total_process_timeout_seconds: 120
+    min_interval_seconds: 2.5
+    search_scrolls: 0            # 冒烟只取首屏卡片：不滚动 = 不假装看过更深的结果
+    lock_dir: "C:/path/to/xhs_leads_locks"  # 占位路径：项目专用锁目录，须为绝对路径、不在 data_dir 内、不在登录 profile 内
+    locations:
+      - "上海"
+    ambiguous_seeds: []

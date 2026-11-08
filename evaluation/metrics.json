@@ -1,0 +1,45 @@
+{
+  "version": "p2-metrics-v1",
+  "status": "NOT_EVALUATED",
+  "generated_by": "xhs_discovery.evaluation.metrics.metrics_skeleton",
+  "human_dataset": {
+    "required_min": 200,
+    "required_max": 300,
+    "provided": false,
+    "status": "NOT_MET"
+  },
+  "merge": {
+    "merge_precision": {
+      "numerator": 0,
+      "denominator": 0,
+      "value": null
+    },
+    "error_merge_rate": {
+      "numerator": 0,
+      "denominator": 0,
+      "value": null
+    }
+  },
+  "extraction": {
+    "extraction_precision": {
+      "numerator": 0,
+      "denominator": 0,
+      "value": null
+    },
+    "extraction_recall": {
+      "numerator": 0,
+      "denominator": 0,
+      "value": null
+    }
+  },
+  "baseline_vs_enhanced": {
+    "comparable": false,
+    "reason": "尚无冻结 eligible 集与两臂预测"
+  },
+  "gate": {
+    "decision": "NOT_EVALUATED",
+    "reasons": [
+      "真实人工标注与模型预测均未提供"
+    ]
+  }
+}

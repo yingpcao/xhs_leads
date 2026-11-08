@@ -1,0 +1,80 @@
+{
+  "batch": {
+    "analysis_version": "p0-rule-baseline.3",
+    "at": "2026-11-07T08:52:58.533981+00:00",
+    "batch": "b02-20261107T085258Z",
+    "export_dir": "runs/zhongkao-zongping-20261101/exports/p0-rule-baseline.3/b02-20261107T085258Z",
+    "extractor_version": "p0-rule-extract.2",
+    "files": [
+      "runs/zhongkao-zongping-20261101/exports/p0-rule-baseline.3/b02-20261107T085258Z/keywords.csv",
+      "runs/zhongkao-zongping-20261101/exports/p0-rule-baseline.3/b02-20261107T085258Z/needs.csv",
+      "runs/zhongkao-zongping-20261101/exports/p0-rule-baseline.3/b02-20261107T085258Z/evidence.csv",
+      "runs/zhongkao-zongping-20261101/exports/p0-rule-baseline.3/b02-20261107T085258Z/graph.graphml",
+      "runs/zhongkao-zongping-20261101/exports/p0-rule-baseline.3/b02-20261107T085258Z/report.json"
+    ],
+    "verification_ok": true
+  },
+  "engine": {
+    "calibration_samples": 0,
+    "events": [
+      "校准池冻结：cp-e768783612226593（1 个成员，种子 20261101）",
+      "消费控制请求 5：resume → running",
+      "槽位 0 完成：上海中考综评探究报告怎么写（联想 completed/1 次尝试，内容 completed，奖励 1.5692）",
+      "槽位 1 完成：上海中考综评探究报告模板（联想 completed/1 次尝试，内容 completed，奖励 0.0000）",
+      "槽位 2 完成：上海中考综评探究报告模板怎么写（联想 completed/1 次尝试，内容 completed，奖励 1.2696）",
+      "槽位 3 完成：上海中考综评探究报告范文（联想 completed/1 次尝试，内容 completed，奖励 0.4000）",
+      "槽位 4 停在阻断：上海中考综评探究报告写作指南（联想 completed，阻断码 WORD_SEARCH_NAVIGATION_FAILED；同一槽未继续后续访问）",
+      "停止策略：paused —— page 异常（code=WORD_SEARCH_NAVIGATION_FAILED）重试已用尽：提交搜索后没有进入搜索结果页。；异常与验证码不得记为收敛"
+    ],
+    "note": "page 异常（code=WORD_SEARCH_NAVIGATION_FAILED）重试已用尽：提交搜索后没有进入搜索结果页。；异常与验证码不得记为收敛",
+    "outcome": null,
+    "pause_reason": "selector_mismatch",
+    "recovered": {
+      "imported_artifacts": 21,
+      "orphaned": [],
+      "reconciled": [],
+      "released_reservations": [],
+      "uncertain_operations": []
+    },
+    "run_id": "zhongkao-zongping-20261101",
+    "signals": {
+      "budget": {
+        "blocked_actions": [
+          "body",
+          "author_posts"
+        ],
+        "exhausted_keys": [
+          "body_attempts",
+          "author_attempts",
+          "model_calls",
+          "model_tokens",
+          "model_cost_usd"
+        ],
+        "runnable_actions": [
+          "suggest",
+          "search"
+        ],
+        "runtime_limit_hit": false
+      },
+      "content_validations": 0,
+      "exhausted_branches": [],
+      "pending_items": 6,
+      "stalled_branches": [],
+      "uncovered_branches": [],
+      "window": {
+        "new_valid_clusters_in_window": 2,
+        "observed_items": 56,
+        "repeat_items": 31,
+        "repeat_rate": 0.553571,
+        "successful_observations": 7,
+        "window_ends_at": "2026-11-07T08:51:46.224000+00:00",
+        "window_full": false,
+        "window_observations": 7
+      }
+    },
+    "slots": 5,
+    "status": "paused"
+  },
+  "resume_request_id": 5,
+  "run_id": "zhongkao-zongping-20261101"
+}

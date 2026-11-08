@@ -1,0 +1,103 @@
+# 聚焦「上海中考综评探究报告」的续挖配置。
+# 与 live-zhongkao-report.yaml 的差异：
+# - max_depth 2：只展开到「综评探究报告 -> 模板/范文/选题/评语」这一层，不再纵向生成 28 字长串
+# - operators 去掉 problem_probe：不再自动拼「有哪些坑/需要什么条件」
+# - 提高采样档位与帖子上限：让模板/范文/选题类卡片真正进入证据表
+# 预算仍不足以收敛，预期以 budget_exhausted / queue_exhausted 结束。
+
+version: 1
+
+run:
+  seed_raw: "上海中考综评探究报告"
+  mode: live
+  random_seed: 20261101
+  data_dir: data_live
+  run_label: zhongkao-zongping
+
+budget:
+  suggest_attempts: 16
+  search_attempts: 20
+  body_attempts: 0
+  author_attempts: 0
+  calibration_suggest_attempts: 2
+  max_posts_stored: 80
+  max_runtime_minutes: 25
+  model_calls: 0
+  model_tokens: 0
+  model_cost_usd: 0.0
+
+sampling:
+  high_value_posts: 6
+  medium_value_posts: 3
+  low_value_posts: 0
+  priority_high: 0.50
+  priority_medium: 0.30
+  branch_min_validation_share: 1
+  first_sample_posts: 1
+
+scheduler:
+  slot_window: 6
+  slots_high_score: 4
+  slots_branch_exploration: 1
+  slots_random_novelty: 1
+  ucb_exploration_coefficient: 1.0
+  unknown_evidence_prior: 0.5
+  cluster_keyword_weight: 0.2
+  max_depth: 2
+  max_segment_repeats: 2
+  operators: [suggest_vertical, phrase_fallback, content_lateral]
+  weights: {r: 0.30, n: 0.20, i: 0.20, e: 0.10, c: 0.10, u: 0.10}
+
+stopping:
+  min_successful_suggestion_observations: 50
+  convergence_window: 50
+  new_problem_cluster_floor: 3
+  repeat_rate_ceiling: 0.85
+  branch_stall_trials: 15
+  require_content_validation: true
+
+scoring:
+  weights: {s: 0.35, q: 0.30, a: 0.20, f: 0.15}
+  log_scale: true
+  quantile_min_sample: 30
+
+nlp:
+  char_ngram_min: 2
+  char_ngram_max: 4
+  min_phrase_freq: 2
+  min_pmi: 0.5
+  tfidf_batch_size: 10
+  domain_terms_path: config/domain_terms.txt
+  intent_rules_path: config/intent_rules.yaml
+
+retry:
+  max_retries: 1
+  backoff_base_seconds: 2.0
+  engine_min_interval_seconds: 3.0
+
+retention:
+  raw_artifact_days: 30
+  export_days: 30
+  minimize_author_data: true
+
+models:
+  embedding_enabled: false
+  llm_enabled: false
+
+sources:
+  fixture:
+    dataset: shanghai_zhongkao
+    base_path: tests/fixtures
+  xhs_search:
+    node_path: "C:/path/to/node.exe"        # 占位路径：跑 live 前须改成本机实测绝对路径（Linux/macOS 例 /usr/local/bin/node）
+    cli_path: "C:/path/to/xhs-search-cli/bin/xhs-search.mjs"   # 占位路径：本机 npm 全局安装位置，须实测填写
+    profile: default
+    browser: msedge
+    timeout_seconds: 60
+    total_process_timeout_seconds: 120
+    min_interval_seconds: 2.5
+    search_scrolls: 0
+    lock_dir: "C:/path/to/xhs_leads_locks"  # 占位路径：项目专用锁目录，须为绝对路径、不在 data_dir 内、不在登录 profile 内
+    locations:
+      - "上海"
+    ambiguous_seeds: []

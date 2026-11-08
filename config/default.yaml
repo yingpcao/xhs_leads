@@ -1,0 +1,114 @@
+# P0 离线闭环默认配置。
+# 所有阈值都是"待实验的配置项"（DEVELOPMENT_PLAN.md 5.3/5.4），显式写出以便复现。
+# 未知键会被拒绝，非法值报错时带字段路径。
+
+version: 1
+
+run:
+  seed_raw: "上海中考"        # 用户原始输入，保留歧义，不自动改写
+  mode: fixture               # fixture | live（live 需 G0 通过后再启用）
+  random_seed: 20261024       # 确定性重放依赖它
+  data_dir: data
+  run_label: null
+
+budget:                       # 分项预算，不存在隐含"无限"
+  suggest_attempts: 300       # 允许用户改为 500
+  search_attempts: 60
+  body_attempts: 0            # 正文能力未验证，保持 0
+  author_attempts: 0          # 作者笔记能力未验证，保持 0
+  calibration_suggest_attempts: 0   # 覆盖校准池独立预算，单列
+  max_posts_stored: 400
+  max_runtime_minutes: 120
+  model_calls: 0
+  model_tokens: 0
+  model_cost_usd: 0.0
+
+sampling:
+  high_value_posts: 15        # 高价值词 10–20 篇
+  medium_value_posts: 5       # 中价值最多 5 篇
+  low_value_posts: 0          # 低价值不采内容
+  priority_high: 0.60
+  priority_medium: 0.35
+  branch_min_validation_share: 1   # 每个新分支的有限最小验证份额
+  first_sample_posts: 1            # 首采保底：还没采过内容的词至少采 1 篇。
+                                   # 档位阈值是绝对分数，而 E 分量要靠采到的实际证据才抬得起来，
+                                   # 两者互为前提时整轮会退化成"只联想不验证"（run-20261031T021531Z 实测 93/105 词卡在此）
+
+scheduler:
+  slot_window: 20
+  slots_high_score: 12        # 每 20 槽：12 高分 / 5 分支探索 / 3 随机新颖
+  slots_branch_exploration: 5
+  slots_random_novelty: 3
+  ucb_exploration_coefficient: 1.0
+  unknown_evidence_prior: 0.5  # 未采样的 E 用中性先验并标记 unknown
+  cluster_keyword_weight: 0.2
+  max_depth: 5                     # 联想纵向最多追到第 5 层：再深就是"父词+同一补全"的自我增殖
+  max_segment_repeats: 2           # 同一 2~3 字片段重复 >2 次即判退化词，不入队（退化长串直接招验证码）
+  operators:
+    - suggest_vertical
+    - phrase_fallback
+    - content_lateral
+    - problem_probe
+  weights: {r: 0.25, n: 0.20, i: 0.20, e: 0.15, c: 0.10, u: 0.10}
+
+stopping:
+  min_successful_suggestion_observations: 50
+  convergence_window: 50
+  new_problem_cluster_floor: 3        # 窗口内新增有效问题簇 < 3 才可能收敛
+  repeat_rate_ceiling: 0.85           # 推荐重复率 > 85%
+  branch_stall_trials: 15             # 单分支停滞只暂缓该分支
+  require_content_validation: true
+
+scoring:
+  weights: {s: 0.35, q: 0.30, a: 0.20, f: 0.15}
+  log_scale: true
+  quantile_min_sample: 30             # 小样本分位数标 provisional
+
+nlp:
+  char_ngram_min: 2
+  char_ngram_max: 4
+  min_phrase_freq: 3                  # 小样本不足时跳过并记录
+  min_pmi: 1.0                        # PMI(log2) 阈值：共现与独立出现无差别就不算短语
+  tfidf_batch_size: 25
+  domain_terms_path: config/domain_terms.txt
+  intent_rules_path: config/intent_rules.yaml
+
+retry:
+  max_retries: 2                      # 有限指数退避，重试同样占预算
+  backoff_base_seconds: 2.0
+  engine_min_interval_seconds: 3.0    # 引擎跨调用限频，不依赖 batch 内 2500ms
+
+retention:
+  raw_artifact_days: 90
+  export_days: 90
+  minimize_author_data: true
+
+models:                               # 默认关闭：不导入重型依赖、不下载权重
+  embedding_enabled: false
+  embedding_model: null
+  embedding_device: cpu
+  llm_enabled: false
+  llm_endpoint_env: XHS_LLM_ENDPOINT  # 只写变量名，不写值
+  llm_api_key_env: XHS_LLM_API_KEY
+  llm_model: null
+  llm_max_output_tokens: 1200
+  llm_batch_size: 8
+  llm_strategy_diagnosis_every_searches: 50
+
+sources:
+  fixture:
+    dataset: shanghai_zhongkao
+    base_path: tests/fixtures
+  xhs_search:                         # live 模式使用；缺任何一项 live 都在配置层被拒绝（65）
+    # 本机工具路径；仅在用户显式选择 live 后使用。换机器须重新配置。
+    node_path: "C:/path/to/node.exe"        # 占位路径：跑 live 前须改成本机实测绝对路径（Linux/macOS 例 /usr/local/bin/node）
+    cli_path: "C:/path/to/xhs-search-cli/bin/xhs-search.mjs"   # 占位路径：本机 npm 全局安装位置，须实测填写
+    profile: default
+    browser: msedge
+    timeout_seconds: 90               # 单操作 CLI --timeout（秒）
+    total_process_timeout_seconds: 180  # 本适配器子进程墙钟上限（秒），与上一行相互独立
+    min_interval_seconds: 2.5         # 同 profile 两次外部访问的保守最小间隔
+    search_scrolls: 5
+    lock_dir: "C:/path/to/xhs_leads_locks"  # 占位路径：项目专用锁目录，跨数据根共享，须为绝对路径、不在 data_dir 内、不在登录 profile 内
+    locations: ["上海"]               # 当前上海搜索口径，其他地域可在界面修改
+    ambiguous_seeds: []               # 留空=保守规则（不标歧义），同样不借用 fixture 清单

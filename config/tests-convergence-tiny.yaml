@@ -1,0 +1,90 @@
+# 仅单元测试用的收敛策略配置，不是产品演示配置。
+#
+# DEVELOPMENT_PLAN.md 第 5.3 节要求：收敛必须同时满足"至少 50 次成功联想观察 + 50 次窗口"，
+# fixture 样本不足时按预算或队列退出，不能为了展示收敛改写指标。
+# 本文件把窗口压到 8 次，只为在测试里驱动"收敛判定"这条代码路径（P0-C 起使用），
+# 与 config/default.yaml / config/offline-demo.yaml 的差异属于实验配置差异，禁止用于产品演示。
+
+version: 1
+
+run:
+  seed_raw: "上海中考"
+  mode: fixture
+  random_seed: 1
+  data_dir: data
+  run_label: tests-convergence-tiny
+
+budget:
+  suggest_attempts: 24
+  search_attempts: 4
+  body_attempts: 0
+  author_attempts: 0
+  calibration_suggest_attempts: 0
+  max_posts_stored: 20
+  max_runtime_minutes: 5
+  model_calls: 0
+  model_tokens: 0
+  model_cost_usd: 0.0
+
+sampling:
+  high_value_posts: 2
+  medium_value_posts: 1
+  low_value_posts: 0
+  priority_high: 0.60
+  priority_medium: 0.35
+  branch_min_validation_share: 1
+  first_sample_posts: 0            # tiny 回归要保住"零内容验证阻断收敛"与低档显式 skip 的断言，保底另用专项测试覆盖
+
+scheduler:
+  slot_window: 8
+  slots_high_score: 5
+  slots_branch_exploration: 2
+  slots_random_novelty: 1
+  ucb_exploration_coefficient: 1.0
+  unknown_evidence_prior: 0.5
+  cluster_keyword_weight: 0.2
+  max_depth: 5                     # 与默认一致：收敛测试不靠放宽深度上限凑链条
+  max_segment_repeats: 2           # 同一 2~3 字片段重复 >2 次判退化词，不入队
+  operators: [suggest_vertical, phrase_fallback, content_lateral, problem_probe]
+  weights: {r: 0.25, n: 0.20, i: 0.20, e: 0.15, c: 0.10, u: 0.10}
+
+stopping:                       # 刻意小于默认值：只用于测试收敛判定分支
+  min_successful_suggestion_observations: 8
+  convergence_window: 8
+  new_problem_cluster_floor: 2
+  repeat_rate_ceiling: 0.85
+  branch_stall_trials: 4
+  require_content_validation: true
+
+scoring:
+  weights: {s: 0.35, q: 0.30, a: 0.20, f: 0.15}
+  log_scale: true
+  quantile_min_sample: 4
+
+nlp:
+  char_ngram_min: 2
+  char_ngram_max: 4
+  min_phrase_freq: 2
+  min_pmi: 0.0                        # 极小语料：短语判定只受频次约束，PMI 门槛留空便于回归观察
+  tfidf_batch_size: 4
+  domain_terms_path: config/domain_terms.txt
+  intent_rules_path: config/intent_rules.yaml
+
+retry:
+  max_retries: 1
+  backoff_base_seconds: 0.0
+  engine_min_interval_seconds: 0.0
+
+retention:
+  raw_artifact_days: 7
+  export_days: 7
+  minimize_author_data: true
+
+models:
+  embedding_enabled: false
+  llm_enabled: false
+
+sources:
+  fixture:
+    dataset: shanghai_zhongkao
+    base_path: tests/fixtures

@@ -1,0 +1,38 @@
+# SQLite、导出与原始响应产物
+# fixture 数据根 data/ 与 live 数据根 data_live/ 都是可重跑的运行产物，不入库；
+# 需要长期保留的交付案例放 deliverables/（受版本控制）。
+/data/
+/data_live/
+*.db
+*.db-wal
+*.db-shm
+
+# 本机锁目录：跨数据根共享的运行期互斥文件，与登录 profile 一样不属于项目内容
+/.xhs_locks/
+
+# 环境与本地凭据（CLI profile 不在本项目内，不复制）
+/.venv/
+.env
+
+# 工具生成的符号链接（指向 .venv 内的包内容，不入库）
+/.agents/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- 不对外发布的内容（本机文件一律保留，只是不进版本库） ---
+# 验收记录与 agent 派单中间产物：属开发过程，49MB 且大量互指死链
+/docs/verification/
+/docs/coordination/
+/P0_ACCEPTANCE.md
+/QODER_TASK.md
+# 派单脚本依赖上面的过程目录，对外无意义
+/scripts/qoder_run_task.py
+/scripts/qoder_task_status.py

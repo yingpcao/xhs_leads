@@ -1,0 +1,103 @@
+{
+  "batch": {
+    "analysis_version": "p0-rule-baseline.3",
+    "at": "2026-10-31T15:56:57.979395+00:00",
+    "batch": "b01-20261031T155657Z",
+    "export_dir": "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b01-20261031T155657Z",
+    "extractor_version": "p0-rule-extract.2",
+    "files": [
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b01-20261031T155657Z/keywords.csv",
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b01-20261031T155657Z/needs.csv",
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b01-20261031T155657Z/evidence.csv",
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b01-20261031T155657Z/graph.graphml",
+      "runs/zhongkao-report-20261031/exports/p0-rule-baseline.3/b01-20261031T155657Z/report.json"
+    ],
+    "verification_ok": true
+  },
+  "engine": {
+    "calibration_samples": 1,
+    "events": [
+      "校准池冻结：cp-901b81a1ae32a43e（1 个成员，种子 20261031）",
+      "槽位 0 完成：上海中考探究报告（联想 completed/1 次尝试，内容 completed，奖励 1.6000）",
+      "槽位 1 完成：上海中考探究报告怎么写（联想 completed/1 次尝试，内容 completed，奖励 1.5091）",
+      "槽位 2 完成：上海中考探究报告怎么写模板（联想 completed/1 次尝试，内容 completed，奖励 1.5091）",
+      "槽位 3 完成：上海中考探究报告怎么写 怎么选（联想 completed/1 次尝试，内容 completed，奖励 1.3091）",
+      "槽位 4 完成：上海中考探究报告怎么写（联想 completed/1 次尝试，内容 completed，奖励 0.0000）",
+      "槽位 5 完成：上海中考探究报告怎么写 有哪些坑（联想 completed/1 次尝试，内容 completed，奖励 1.1091）",
+      "槽位 6 完成：上海中考探究报告怎么写（联想 completed/1 次尝试，内容 completed，奖励 0.0000）",
+      "槽位 7 完成：上海中考探究报告怎么写 有哪些坑 需要什么条件（联想 completed/1 次尝试，内容 completed，奖励 1.1091）",
+      "槽位 8 完成：上海中考探究报告怎么写 需要什么条件（联想 completed/1 次尝试，内容 completed，奖励 1.1091）",
+      "槽位 9 完成：上海中考探究报告怎么写模板 需要什么条件（联想 completed/1 次尝试，内容 completed，奖励 0.2000）",
+      "槽位 10 完成：上海中考探究报告怎么写（联想 completed/1 次尝试，内容 completed，奖励 0.0000）",
+      "槽位 11 完成：上海中考探究报告怎么写 需要什么条件 有哪些坑（联想 completed/1 次尝试，内容 completed，奖励 1.1091）",
+      "槽位 12 完成：上海探究报告模板怎么写（联想 completed/1 次尝试，内容 skipped，奖励 1.2000）",
+      "槽位 13 完成：上海中考探究报告怎么写模板 有哪些坑（联想 completed/1 次尝试，内容 skipped，奖励 0.2000）",
+      "槽位 14 完成：上海中考探究报告范文（联想 completed/1 次尝试，内容 skipped，奖励 0.6000）",
+      "槽位 15 完成：上海中考探究报告怎么写 有哪些坑 需要什么条件 需要什么条件（联想 failed/1 次尝试，内容 skipped，奖励 0.0000）",
+      "槽位 16 完成：上海中考探究报告题目推荐（联想 completed/1 次尝试，内容 skipped，奖励 1.0000）",
+      "槽位 17 完成：上海中考探究报告范文模板（联想 completed/1 次尝试，内容 skipped，奖励 0.6000）",
+      "槽位 18 完成：上海中考综评探究报告模板（联想 completed/1 次尝试，内容 skipped，奖励 1.0000）",
+      "槽位 19 完成：上海中考综评探究报告怎么写（联想 completed/1 次尝试，内容 skipped，奖励 0.4000）",
+      "槽位 20 完成：上海中考探究报告怎么写 需要什么条件 有哪些坑 怎么选（联想 failed/1 次尝试，内容 skipped，奖励 0.0000）",
+      "槽位 21 完成：上海中考探究报告怎么写 怎么选择（联想 completed/1 次尝试，内容 skipped，奖励 0.2000）",
+      "槽位 22 完成：上海中考探究报告怎么写（联想 completed/1 次尝试，内容 skipped，奖励 0.0000）",
+      "槽位 23 完成：上海中考探究报告怎么写 有哪些坑 需要什么条件 怎么选（联想 failed/1 次尝试，内容 skipped，奖励 0.0000）",
+      "停止策略：paused —— 队列尚有 22 项但所有动作预算耗尽（['author_attempts', 'body_attempts', 'model_calls', 'model_cost_usd', 'model_tokens', 'search_attempts', 'suggest_attempts']）；这是预算未达而非收敛，追加预算后可恢复"
+    ],
+    "note": "队列尚有 22 项但所有动作预算耗尽（['author_attempts', 'body_attempts', 'model_calls', 'model_cost_usd', 'model_tokens', 'search_attempts', 'suggest_attempts']）；这是预算未达而非收敛，追加预算后可恢复",
+    "outcome": null,
+    "pause_reason": "fault",
+    "recovered": {
+      "imported_artifacts": 4,
+      "orphaned": [
+        "runs/zhongkao-report-20261031/source/domain_terms.txt",
+        "runs/zhongkao-report-20261031/source/intent_rules.yaml",
+        "runs/zhongkao-report-20261031/source/settings_snapshot.json",
+        "runs/zhongkao-report-20261031/source/snapshot.json"
+      ],
+      "reconciled": [],
+      "released_reservations": [],
+      "uncertain_operations": []
+    },
+    "run_id": "zhongkao-report-20261031",
+    "signals": {
+      "budget": {
+        "blocked_actions": [
+          "suggest",
+          "search",
+          "body",
+          "author_posts"
+        ],
+        "exhausted_keys": [
+          "suggest_attempts",
+          "search_attempts",
+          "body_attempts",
+          "author_attempts",
+          "model_calls",
+          "model_tokens",
+          "model_cost_usd"
+        ],
+        "runnable_actions": [],
+        "runtime_limit_hit": false
+      },
+      "content_validations": 0,
+      "exhausted_branches": [],
+      "pending_items": 22,
+      "stalled_branches": [],
+      "uncovered_branches": [],
+      "window": {
+        "new_valid_clusters_in_window": 7,
+        "observed_items": 133,
+        "repeat_items": 85,
+        "repeat_rate": 0.639098,
+        "successful_observations": 21,
+        "window_ends_at": "2026-10-31T15:56:36.004000+00:00",
+        "window_full": false,
+        "window_observations": 21
+      }
+    },
+    "slots": 24,
+    "status": "paused"
+  },
+  "run_id": "zhongkao-report-20261031"
+}
